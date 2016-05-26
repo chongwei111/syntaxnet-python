@@ -1,6 +1,5 @@
 
-import re
-import ast
+import os
 from setuptools import setup
 
 
@@ -17,10 +16,4 @@ setup(
     author_email='james@algorithmia.com',
     description='A python library for syntaxnet & parsey mcparseface ',
     packages=['syntaxnet'],
-    include_package_data=True,
-    platforms='any',
-    install_requires=[
-        'numpy>=0.10',
-        'protobuf==3.0.0b2.post1',
-    ]
 )
