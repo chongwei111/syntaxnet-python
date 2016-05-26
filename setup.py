@@ -4,24 +4,20 @@ import ast
 from setuptools import setup
 
 
-_version_re = re.compile(r'__version__\s+=\s+(.*)')
-
-with open('__init__.py', 'rb') as f:
-    version = str(ast.literal_eval(_version_re.search(
-        f.read().decode('utf-8')).group(1)))
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 setup(
     name='syntaxnet-python',
-    version=version,
+    version='0.1.1',
     url='http://github.com/algorithmiaio/syntaxnet-python/',
     license='MIT',
     author='James Sutton',
     author_email='james@algorithmia.com',
     description='A python library for syntaxnet & parsey mcparseface ',
-    packages=['syntaxnet', 'syntaxnet.ext'],
+    packages=['syntaxnet'],
     include_package_data=True,
-    zip_safe=False,
     platforms='any',
     install_requires=[
         'numpy>=0.10',
