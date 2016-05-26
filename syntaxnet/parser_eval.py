@@ -23,7 +23,6 @@ import time
 import tensorflow as tf
 
 from tensorflow.python.platform import gfile
-from tensorflow.python.platform import tf_logging as logging
 from syntaxnet import sentence_pb2
 from syntaxnet import graph_builder
 from syntaxnet import structured_graph_builder
@@ -66,8 +65,6 @@ def Eval(sess, num_actions, feature_sizes, domain_sizes, embedding_dims):
   """
   t = time.time()
   hidden_layer_sizes = map(int, FLAGS.hidden_layer_sizes.split(','))
-  logging.info('Building training network with parameters: feature_sizes: %s '
-               'domain_sizes: %s', feature_sizes, domain_sizes)
   if FLAGS.graph_builder == 'greedy':
     parser = graph_builder.GreedyParser(num_actions,
                                         feature_sizes,
@@ -114,7 +111,6 @@ def Eval(sess, num_actions, feature_sizes, domain_sizes, embedding_dims):
     ])
 
     if len(tf_documents):
-      logging.info('Processed %d documents', len(tf_documents))
       num_documents += len(tf_documents)
       sess.run(sink, feed_dict={sink_documents: tf_documents})
 
@@ -125,17 +121,11 @@ def Eval(sess, num_actions, feature_sizes, domain_sizes, embedding_dims):
     elif num_epochs < tf_eval_epochs:
       break
 
-  logging.info('Total processed documents: %d', num_documents)
   if num_tokens > 0:
     eval_metric = 100.0 * num_correct / num_tokens
-    logging.info('num correct tokens: %d', num_correct)
-    logging.info('total tokens: %d', num_tokens)
-    logging.info('Seconds elapsed in evaluation: %.2f, '
-                 'eval metric: %.2f%%', time.time() - t, eval_metric)
 
 
 def main(unused_argv):
-  logging.set_verbosity(logging.INFO)
   with tf.Session() as sess:
     feature_sizes, domain_sizes, embedding_dims, num_actions = sess.run(
         gen_parser_ops.feature_size(task_context=FLAGS.task_context,
