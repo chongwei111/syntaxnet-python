@@ -1,4 +1,4 @@
-FROM algorithmia/langpacks-runner-advanced
+FROM java:8
 
 ENV SYNTAXNETDIR=/opt/tensorflow PATH=$PATH:/root/bin
 
