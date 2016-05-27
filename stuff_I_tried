@@ -1,0 +1,5 @@
+I've tried:
+
+pulling only the "binary files" & python scripts -- doesn't work because the "binary files" aren't static, they require the bazel build 
+
+tar -hczf syntaxnet.tar.gz syntaxnet -- doesn't work beacuse of environment variables not being set by ./configure I think?
