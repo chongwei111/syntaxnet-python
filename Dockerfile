@@ -1,15 +1,14 @@
-FROM java:8
+FROM algorithmia/adock-base
 
 ENV SYNTAXNETDIR=/opt/tensorflow PATH=$PATH:/root/bin
 
 RUN mkdir -p $SYNTAXNETDIR \
     && cd $SYNTAXNETDIR \
     && apt-get update \
-    && apt-get install git zlib1g-dev file swig python2.7 python-dev python-pip -y \
-    && pip install --upgrade pip \
-    && pip install -U protobuf==3.0.0b2 \
-    && pip install asciitree \
-    && pip install numpy \
+    && apt-get install git zlib1g-dev file swig python2.7 python-dev -y \
+    && conda install protobuf==3.0.0b2 \
+    && conda install asciitree \
+    && conda install numpy \
     && wget https://github.com/bazelbuild/bazel/releases/download/0.2.2b/bazel-0.2.2b-installer-linux-x86_64.sh \
     && chmod +x bazel-0.2.2b-installer-linux-x86_64.sh \
     && ./bazel-0.2.2b-installer-linux-x86_64.sh --user \
